@@ -10,6 +10,10 @@
         public double Armor { get; set; }
         public double Passive { get; set; }
 
+
+
+
+
     }
 
 }
