@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace Characters
 {
-    public class Mage : ICharacter
+    public class Mage : Character
     {
-        public string Type { get; set; }
-        public double MaxHP { get; set; }
-        public double CurrentHP { get; set; }
-        public double AttackDamage { get; set; }
-        public double Armor { get; set; }
-        public double Passive { get; set; }
         public Mage()
         {
             Type = "mage";

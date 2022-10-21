@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace Characters
 {
-    public class Healer : ICharacter
+    public class Healer : Character
     {
-        public string Type { get; set; }
-        public double MaxHP { get; set; }
-        public double CurrentHP { get; set; }
-        public double AttackDamage { get; set; }
-        public double Armor { get; set; }
-        public double Passive { get; set; }
+
         public Healer()
         {
             Type = "healer";
@@ -21,7 +16,7 @@ namespace Characters
             CurrentHP = 70;
             AttackDamage = 7;
             Armor = 2.15;
-            Passive = 6.25; // heals x hp
+            Passive = 6; // heals x hp
         }
     }
 }
