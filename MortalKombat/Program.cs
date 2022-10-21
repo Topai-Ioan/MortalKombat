@@ -12,27 +12,14 @@ namespace MortalKombat
             Arena arena = new Arena();
             Console.WriteLine("Hello!");
             Console.WriteLine("Enter your name");
-            /*string? name = null;
-            try
-            {
-                name = Console.ReadLine();
-                if (name == null)
-                {
-                    throw new ArgumentNullException(nameof(name));
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Eroare in {nameof(Main)} ex {ex.Message}");
-                Console.WriteLine($"Draga utilizator, te rugam sa introduci un nume valid");
-            }*/
-            string? name = Console.ReadLine();
+
+            string? playerName = Console.ReadLine();
             string? characterLetter;
 
             Console.WriteLine("The Characters are: \nWarrior (W)\nArcher (A)\nHealer (H)\nMage (M)\nAssasin (K)");
             do
             {
-                Console.Write($"{name} choose character: ");
+                Console.Write($"{playerName} choose character: ");
                 characterLetter = Console.ReadLine();
 
                 characterLetter = characterLetter.ToLower();
@@ -43,10 +30,10 @@ namespace MortalKombat
             {
                 case "w":
                     Warrior warrior = new Warrior();
-                    Console.WriteLine($"{name} chosed Warrior! Great Choise");
+                    Console.WriteLine($"{playerName} chosed Warrior! Great Choise");
                     try
                     {
-                        arena.Fight(warrior, name);
+                        arena.Fight( warrior, playerName, arena.RobotChoise());
                     }
                     catch (Exception ex)
                     {
@@ -56,25 +43,26 @@ namespace MortalKombat
                     break;
                 case "a":
                     Archer archer = new Archer();
-                    Console.WriteLine($"{name} chosed Archer! Great Choise");
-                    arena.Fight(archer, name);
+                    Console.WriteLine($"{playerName} chosed Archer! Great Choise");
+                    arena.Fight( archer, playerName, arena.RobotChoise());
                     break;
                 case "h":
                     Healer healer = new Healer();
-                    Console.WriteLine($"{name} chosed Healer! Great Choise");
-                    arena.Fight(healer, name);
+                    Console.WriteLine($"{playerName} chosed Healer! Great Choise");
+                    arena.Fight( healer, playerName, arena.RobotChoise());
                     break;
                 case "m":
                     Mage mage = new Mage();
-                    Console.WriteLine($"{name} chosed Mage! Great Choise");
-                    arena.Fight(mage, name);
+                    Console.WriteLine($"{playerName} chosed Mage! Great Choise");
+                    arena.Fight( mage, playerName, arena.RobotChoise());
                     break;
                 case "k":
                     Assasin assasin = new Assasin();
-                    Console.WriteLine($"{name} chosed Assasin! Great Choise");
-                    arena.Fight(assasin, name);
+                    Console.WriteLine($"{playerName} chosed Assasin! Great Choise");
+                    arena.Fight( assasin, playerName, arena.RobotChoise());
                     break;
             }
+
         }
         public static bool PlayerHasValidCharacter(string choise)
         {

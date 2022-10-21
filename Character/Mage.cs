@@ -17,11 +17,12 @@ namespace Characters
         public Mage()
         {
             Type = "mage";
-            MaxHP = 80;
-            CurrentHP = 80;
+            MaxHP = 82.5;
+            CurrentHP = 82.5;
             AttackDamage = 13;
-            Armor = 5;
+            Armor = 7;
             Passive = 1; // permanetly increasing damage by 1
         }
+
     }
 }

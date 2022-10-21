@@ -11,9 +11,6 @@
         public double Passive { get; set; }
 
 
-
-
-
     }
 
 }

@@ -17,11 +17,11 @@ namespace Characters
         public Healer()
         {
             Type = "healer";
-            MaxHP = 90;
-            CurrentHP = 90;
+            MaxHP = 70;
+            CurrentHP = 70;
             AttackDamage = 7;
-            Armor = 3;
-            Passive = 5; // heals 5hp
+            Armor = 2.15;
+            Passive = 6.25; // heals x hp
         }
     }
 }

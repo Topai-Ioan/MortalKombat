@@ -11,11 +11,11 @@
         public Assasin()
         {
             Type = "assasin";
-            MaxHP = 70;
-            CurrentHP = 70;
-            AttackDamage = 13;
-            Armor = 1;
-            Passive = 20; // 5 % of +20 damage
+            MaxHP = 80;
+            CurrentHP = 80;
+            AttackDamage = 20;
+            Armor = 5;
+            Passive = 20; // 10 % of +20 damage
         }
 
 
