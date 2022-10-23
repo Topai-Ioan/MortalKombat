@@ -1,5 +1,9 @@
 ﻿using Characters;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Net.NetworkInformation;
+using System.Runtime.Intrinsics.X86;
 
 namespace Arenas
 {
@@ -9,15 +13,13 @@ namespace Arenas
         public static int playerWins;
 
         // TODO RANDOM MESSAGES WHEN GETTING DAMAGE
-        /*public enum RandomMessages : int
-        {
-            [Description("Our destination is quickly approaching.")]
-            message = 1,
-            [Description("Albert Einstein was kind of smart.")]
-            message2 = 2,
-            [Description("That's the big question, isn't it?")]
-            message3 = 3,
-        }*/
+        private string[] randomMessages = { "Our destination is quickly approaching.", "Albert Einstein was kind of smart.", 
+            "That's the big question, isn't it?","Today is a great day.", "You must have a huge family.", "It's a real problem.", 
+            "Italians eat a large meal twice a day.", "He is the person to see.","Here's the shirt Tom gave me.", 
+            "My goal is to save lives, not cost them.", "Why didn't you just call the police?", "She had nothing else to say to him.",
+            "Everyone was in on the joke except for me.", "She likes to swing at the playground.", "Murders are very common in cities."
+        };
+
         public void Fight(Character playerCharacter, string? playerName, Character robotCharacter)
         {
             string robotName = "Cici";
@@ -92,7 +94,8 @@ namespace Arenas
             }
 
         }
-        public void CharacterTurn(Character character, Character opponent, double extraDamage, string? name, double opponentCurentHP, double totalDamage, int step)
+        public void CharacterTurn(Character character, Character opponent, double extraDamage, string? name, 
+            double opponentCurentHP, double totalDamage, int step)
         {
             character.GetPassivesAndCounters(opponent.Type, ref extraDamage);
             character.Hit(opponent);
@@ -111,15 +114,17 @@ namespace Arenas
         }
         public void PrintConsoleMessages(string? name, double opponentCurrentHp, Character opponentCharacter, double damage)
         {
-            Random random = new Random((int)(DateTime.Now.Ticks));
-            int messageNumber = random.Next(1, 11);
+            //Random random = new Random((int)(DateTime.Now.Ticks));
+            //int messageNumber = random.Next(0, randomMessages.Length+1);
 
             if (damage != 0)
             {
+                //Console.WriteLine(randomMessages[messageNumber]);
                 Console.WriteLine($"{name} dealt {(opponentCurrentHp - opponentCharacter.CurrentHP):N2} + {damage}  extra damage");
             }
             else
             {
+                //Console.WriteLine(randomMessages[messageNumber]);
                 Console.WriteLine($"{name} dealt {(opponentCurrentHp - opponentCharacter.CurrentHP):N2}");
             }
         }

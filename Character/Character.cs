@@ -79,6 +79,7 @@
         }
 
 
+        // to-do ar trebui si celelalte combinatii de clase testate
         public void GetPassivesAndCounters(string oponentCharacterType, ref double extraDamage)
         {
             switch (Type)
@@ -124,14 +125,12 @@
                     break;
                 case "healer":
                      CheckCurrentAndMaxHP();
-
-
                     if (oponentCharacterType == "assasin")
                     {
                          CurrentHP -= 3; // assasin counters healer
                          Armor = 6;
-                         Passive = 10.5;
-                         AttackDamage = 10.2;
+                         Passive = 11;
+                         AttackDamage = 10;
                     }
                     if (oponentCharacterType == "archer")
                     {
@@ -158,17 +157,17 @@
                     if (oponentCharacterType == "healer")
                     {
                          CurrentHP -= 2; // healer counter mage
-                         AttackDamage = 14;
+                         AttackDamage = 13.5;
                          Armor = 7;
                     }
                     if (oponentCharacterType == "assasin")
                     {
-                         Armor = 9;
+                         Armor = 8.5;
                     }
                     if (oponentCharacterType == "archer")
                     {
                          AttackDamage = 12;
-                    }
+                    }   
                     break;
                 case "warrior":
                      CheckCurrentAndMaxHP();
@@ -176,10 +175,15 @@
                     if (oponentCharacterType == "archer")
                     {
                          CurrentHP -= 3; // archer counters warrior
+                        AttackDamage = 10.1;
                     }
                     if (oponentCharacterType == "assasin")
                     {
                         extraDamage = 2;
+                    }
+                    if (oponentCharacterType == "mage")
+                    {
+                        AttackDamage = 9.7;
                     }
                     break;
             }
