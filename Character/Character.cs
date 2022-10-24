@@ -2,7 +2,7 @@
 {
     public class Character
     {
-
+        // to-do fa attack special pt fiecare categorie cand se strange suficienta ceva
         public string Type { get; set; }
         public double MaxHP { get; set; }
         public double CurrentHP { get; set; }
@@ -11,7 +11,7 @@
         public double Passive { get; set; }
         public Character()
         {
-            Type = "default";
+            Type = nameof(Character);
             MaxHP = 0;
             CurrentHP = 0;
             AttackDamage = 0;
@@ -79,7 +79,8 @@
         }
 
 
-        // to-do ar trebui si celelalte combinatii de clase testate
+        // to-do ar trebui si celelalte combinatii de clase testate?
+        // muta treaba asta in fiecare clasa copil
         public void GetPassivesAndCounters(string oponentCharacterType, ref double extraDamage)
         {
             switch (Type)
