@@ -97,7 +97,7 @@ namespace Arenas
         public void CharacterTurn(Character character, Character opponent, double extraDamage, string? name, 
             double opponentCurentHP, double totalDamage, int step)
         {
-            character.GetPassivesAndCounters(opponent.Type, ref extraDamage);
+            character.GetPassivesAndCounters(opponent, ref extraDamage);
             character.Hit(opponent);
             PrintConsoleMessages(name, opponentCurentHP, opponent, extraDamage);
             character.ResetPassive();

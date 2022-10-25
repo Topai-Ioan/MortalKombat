@@ -18,5 +18,34 @@ namespace Characters
             Armor = 2.15;
             Passive = 6; // heals x hp
         }
+        public override void GetPassivesAndCounters(Character character, ref double extraDamage)
+        {
+            switch (character.Type)
+            {
+                case "archer":
+                    Armor = 6.5;
+                    Passive = 7;
+                    break;
+                case "assasin":
+                    CurrentHP -= 3; // assasin counters healer
+                    Armor = 6.5;
+                    Passive = 11;
+                    AttackDamage = 10;
+                    break;
+                case "healer":
+                    break;
+                case "mage":
+                    extraDamage = 2;
+                    break;
+                case "warrior":
+                    AttackDamage = 7.5;
+                    Armor = 4.25;
+                    Passive = 6;
+                    break;
+            }
+            CurrentHP += Passive;
+            CheckCurrentAndMaxHP();
+            Console.WriteLine($"Healer healed {Passive} HP");
+        }
     }
 }

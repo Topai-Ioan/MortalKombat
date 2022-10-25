@@ -1,6 +1,6 @@
 ﻿namespace Characters
 {
-    public class Character
+    public abstract class Character
     {
         // to-do fa attack special pt fiecare categorie cand se strange suficienta ceva
         public string Type { get; set; }
@@ -81,114 +81,7 @@
 
         // to-do ar trebui si celelalte combinatii de clase testate?
         // muta treaba asta in fiecare clasa copil
-        public void GetPassivesAndCounters(string oponentCharacterType, ref double extraDamage)
-        {
-            switch (Type)
-            {
-                case "archer":
-                    CheckCurrentAndMaxHP();
-                    Random zeroOrOne = new Random();
-                    Passive = zeroOrOne.Next(1, 3);
-                    if (Passive == 1)
-                    {
-                        AttackDamage += 2;
-                    }
-                    if (oponentCharacterType == "assasin")
-                    {
-                        CurrentHP -= 3; //assasin counters archer
-                        Armor = 17;
-                    }
-                    if (oponentCharacterType == "warrior")
-                    {
-                        extraDamage = 3;
-                    }
-
-                    break;
-                case "assasin":
-                    CheckCurrentAndMaxHP();
-                    Random random = new Random();
-                    int lucky = random.Next(0, 11);
-
-                    if (lucky == 7)
-                    {
-                        AttackDamage +=  Passive;
-                    }
-                    if (oponentCharacterType == "warrior")
-                    {
-                         CurrentHP -= 2; // warrior counters assasin
-                         AttackDamage = 25;
-                         Armor = 7;
-                    }
-                    if (oponentCharacterType == "healer" || oponentCharacterType == "archer")
-                    {
-                        extraDamage = 3;
-                    }
-                    break;
-                case "healer":
-                     CheckCurrentAndMaxHP();
-                    if (oponentCharacterType == "assasin")
-                    {
-                         CurrentHP -= 3; // assasin counters healer
-                         Armor = 6;
-                         Passive = 11;
-                         AttackDamage = 10;
-                    }
-                    if (oponentCharacterType == "archer")
-                    {
-                         Armor = 6;
-                         Passive = 7;
-                    }
-                    if (oponentCharacterType == "warrior")
-                    {
-                         AttackDamage = 7.5;
-                         Armor = 4.25;
-                         Passive = 6;
-                    }
-                    if (oponentCharacterType == "mage")
-                    {
-                        extraDamage = 2;
-                    }
-                    CurrentHP += Passive;
-                    Console.WriteLine($"Healer healed {Passive} HP");
-
-                    break;
-                case "mage":
-                     CheckCurrentAndMaxHP();
-                     AttackDamage +=  Passive;
-                    if (oponentCharacterType == "healer")
-                    {
-                         CurrentHP -= 2; // healer counter mage
-                         AttackDamage = 13.5;
-                         Armor = 7;
-                    }
-                    if (oponentCharacterType == "assasin")
-                    {
-                         Armor = 8.5;
-                    }
-                    if (oponentCharacterType == "archer")
-                    {
-                         AttackDamage = 12;
-                    }   
-                    break;
-                case "warrior":
-                     CheckCurrentAndMaxHP();
-                     Armor +=  Passive;
-                    if (oponentCharacterType == "archer")
-                    {
-                         CurrentHP -= 3; // archer counters warrior
-                        AttackDamage = 10.1;
-                    }
-                    if (oponentCharacterType == "assasin")
-                    {
-                        extraDamage = 2;
-                    }
-                    if (oponentCharacterType == "mage")
-                    {
-                        AttackDamage = 9.7;
-                    }
-                    break;
-            }
-        }
+        public abstract void GetPassivesAndCounters(Character character, ref double extraDamage);
 
     }
 
