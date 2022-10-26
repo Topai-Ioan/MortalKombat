@@ -26,6 +26,7 @@ namespace MortalKombat
 
             } while (PlayerHasValidCharacter(characterLetter) != true);
 
+            // fa player class
             switch (characterLetter)
             {
                 case "w":

@@ -39,7 +39,9 @@
                 CurrentHP = MaxHP;
             }
         }
-
+        // notifier in loc de consol write !
+        // fa asta doar pt asasin, probabil ai nevoie de o interfata si o sa scapi de abstract
+        // if is istance (assasin)
         public void ResetPassive()
         {
             switch (Type)
