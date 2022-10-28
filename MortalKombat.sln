@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arenas", "Arenas\Arenas.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{F7E7C5BE-4031-4B0C-9EA7-61C507B57417}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Players", "Player\Players.csproj", "{D3F89936-B339-4183-B12F-E96A307226F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F7E7C5BE-4031-4B0C-9EA7-61C507B57417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7E7C5BE-4031-4B0C-9EA7-61C507B57417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7E7C5BE-4031-4B0C-9EA7-61C507B57417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3F89936-B339-4183-B12F-E96A307226F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3F89936-B339-4183-B12F-E96A307226F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3F89936-B339-4183-B12F-E96A307226F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3F89936-B339-4183-B12F-E96A307226F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

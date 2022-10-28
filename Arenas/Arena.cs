@@ -128,7 +128,7 @@ namespace Arenas
                 Console.WriteLine($"{name} dealt {(opponentCurrentHp - opponentCharacter.CurrentHP):N2}");
             }
         }
-        public Character RobotChoise()
+        public Character? RobotChoise()
         {
             Random random = new Random((int)(DateTime.Now.Ticks));
             int number = random.Next(1, 6);
@@ -154,9 +154,9 @@ namespace Arenas
                     Character assasin = new Assasin();
                     Console.WriteLine($"Robot chose Assasin! ");
                     return assasin;
+                default:
+                    return null;
             }
-            Character character = new Warrior();
-            return character;
         }
 
     }
