@@ -3,12 +3,14 @@
     public abstract class Character
     {
         // to-do fa attack special pt fiecare categorie cand se strange suficienta ceva
-        public string Type { get; set; }
+        public string? Type { get; set; }
         public double MaxHP { get; set; }
         public double CurrentHP { get; set; }
         public double AttackDamage { get; set; }
         public double Armor { get; set; }
         public double Passive { get; set; }
+        public double ExtraDamage { get; set; }
+
         public Character()
         {
             Type = nameof(Character);
@@ -17,9 +19,10 @@
             AttackDamage = 0;
             Armor = 0;
             Passive = 0;
+            ExtraDamage = 0;
         }
         
-        public void Hit(Character opponent)
+        public void Hit(ref Character opponent)
         {
             int min = 0;
             int max = 2;
@@ -27,7 +30,7 @@
             double randomDamage = random.NextDouble() * (max - min) + min;
             opponent.CurrentHP -= (AttackDamage * 10) / (opponent.Armor + 10) + randomDamage;
         }
-        public bool isHPZeroOrLess()
+        public bool IsHPZeroOrLess()
         {
             return CurrentHP <= 0;
         }
@@ -40,32 +43,6 @@
             }
         }
         // notifier in loc de consol write !
-        // fa asta doar pt asasin, probabil ai nevoie de o interfata si o sa scapi de abstract
-        // if is istance (assasin)
-        public void ResetPassive()
-        {
-            switch (Type)
-            {
-                case "archer":
-
-                    break;
-                case "assasin":
-                    if (AttackDamage >= 40)
-                    {
-                        AttackDamage -= Passive;
-                    }
-                    break;
-                case "healer":
-
-                    break;
-                case "mage":
-
-                    break;
-                case "warrior":
-
-                    break;
-            }
-        }
 
         public void TryToLevelUp(ref int stepForLevelingUp, double totalDamage, string? Name)
         {
@@ -80,11 +57,8 @@
             }
         }
 
-
         // to-do ar trebui si celelalte combinatii de clase testate?
-        // muta treaba asta in fiecare clasa copil
-        public abstract void GetPassivesAndCounters(Character character, ref double extraDamage);
-
+        public abstract void GetPassive();
     }
 
 }

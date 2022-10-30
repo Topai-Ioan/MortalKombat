@@ -1,9 +1,9 @@
 ﻿using Characters;
-using System;
+using Players;
+using Robots;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Net.NetworkInformation;
-using System.Runtime.Intrinsics.X86;
+using System.Numerics;
+using System.Xml.Linq;
 
 namespace Arenas
 {
@@ -20,90 +20,187 @@ namespace Arenas
             "Everyone was in on the joke except for me.", "She likes to swing at the playground.", "Murders are very common in cities."
         };
 
-        public void Fight(Character playerCharacter, string? playerName, Character robotCharacter)
+        public void Fight( Player player,  Robot robot)
         {
-            string robotName = "Cici";
-            Random random = new Random((int)(DateTime.Now.Ticks));
+            GetBalanced(ref player, ref robot);
+            int numberToStartTurn = WhoIsStarting(player, robot);
 
-            int numberToStartTurn = random.Next(1, 3);
-            if (numberToStartTurn == 1)
-                Console.WriteLine($"First Turn: {playerName}");
-            else
-                Console.WriteLine($"First Turn: {robotName}");
-            Console.WriteLine();
-
+           
             int stepForPLayerLevelingUp = 0;
             int stepForRobotLevelingUp = 0;
             double totalDamageDealtByPlayer = 0;
             double totalDamageDealtByRobot = 0;
             int turns = 1;
-            while (playerCharacter.isHPZeroOrLess() == false && robotCharacter.isHPZeroOrLess() == false)
+            while (player?.Character?.IsHPZeroOrLess() == false && robot?.Character?.IsHPZeroOrLess() == false)
             {
-                double copieRobotCurrentHP = robotCharacter.CurrentHP;
-                double copiePlayerCurrentHP = playerCharacter.CurrentHP;
+                double copieRobotCurrentHP = robot.Character.CurrentHP;
+                double copiePlayerCurrentHP = player.Character.CurrentHP;
 
-                double extraDamage = 0;
                 if (numberToStartTurn == 1)
                 {
                     // player hit first 
-                    CharacterTurn(playerCharacter, robotCharacter, extraDamage, playerName, copieRobotCurrentHP,
+                    CharacterTurn(player.Character, robot.Character, player.Name, copieRobotCurrentHP,
                         totalDamageDealtByPlayer, stepForPLayerLevelingUp);
-                    if (robotCharacter.isHPZeroOrLess() == true)
+                    if (robot.Character.IsHPZeroOrLess() == true)
                         break;
                     Console.WriteLine();
 
                     //robot turn        
-                    CharacterTurn(robotCharacter, playerCharacter, extraDamage, robotName, copiePlayerCurrentHP,
+                    CharacterTurn(robot.Character, player.Character, robot.Name, copiePlayerCurrentHP,
                         totalDamageDealtByRobot, stepForRobotLevelingUp);
-                    if (playerCharacter.isHPZeroOrLess() == true)
+                    if (player.Character.IsHPZeroOrLess() == true)
                         break;
                     Console.WriteLine();
                 }
                 else
                 {
                     // robot hit first    
-                    CharacterTurn(robotCharacter, playerCharacter, extraDamage, robotName, copiePlayerCurrentHP,
+                    CharacterTurn(robot.Character, player.Character, robot.Name, copiePlayerCurrentHP,
                         totalDamageDealtByRobot, stepForRobotLevelingUp);
-                    if (playerCharacter.isHPZeroOrLess() == true)
+                    if (player.Character.IsHPZeroOrLess() == true)
                         break;
                     Console.WriteLine();
 
                     // player turn        
-                    CharacterTurn(playerCharacter, robotCharacter, extraDamage, playerName, copieRobotCurrentHP,
+                    CharacterTurn(player.Character, robot.Character, player.Name, copieRobotCurrentHP,
                         totalDamageDealtByPlayer, stepForPLayerLevelingUp);
-                    if (robotCharacter.isHPZeroOrLess() == true)
+                    if (robot.Character.IsHPZeroOrLess() == true)
                         break;
                     Console.WriteLine();
                 }
 
                 turns++;
             }
-            if (playerCharacter.isHPZeroOrLess() == true)
+            if (player?.Character?.IsHPZeroOrLess() == true)
             {
-                Console.WriteLine($"Sorry {playerName}, you lost the duel");
+                Console.WriteLine($"Sorry {player?.Name}, you lost the duel");
                 robotWins++;
             }
-            else if (robotCharacter.isHPZeroOrLess() == true)
+            else if (robot?.Character?.IsHPZeroOrLess() == true)
             {
-                Console.WriteLine($"congratulation {playerName}, you won!");
+                Console.WriteLine($"congratulation {player?.Name}, you won!");
                 playerWins++;
             }
             else
-            {
                 Console.WriteLine("DRAW");
-            }
-
         }
-        public void CharacterTurn(Character character, Character opponent, double extraDamage, string? name, 
+        public int WhoIsStarting(Player player, Robot robot)
+        {
+            Random random = new Random((int)(DateTime.Now.Ticks));
+
+            int numberToStartTurn = random.Next(1, 3);
+            if (numberToStartTurn == 1)
+                Console.WriteLine($"First Turn: {player.Name}");
+            else
+                Console.WriteLine($"First Turn: {robot.Name}");
+            Console.WriteLine();
+            return numberToStartTurn;
+        }
+        public void GetBalanced(ref Player player, ref Robot robot)
+        {
+            if(player.Character is Warrior)
+            {
+                if(robot.Character is Archer)
+                {
+                    robot.Character.ExtraDamage = 3;
+                    player.Character.AttackDamage = 10.2;
+                }
+                else if (robot.Character is Assasin)
+                {
+                    player.Character.ExtraDamage = 2;
+                } 
+                else if (robot.Character is Healer)
+                {
+                    player.Character.AttackDamage = 9.9;
+                }
+                else if (robot.Character is Mage)
+                {
+                    player.Character.AttackDamage = 9.7;
+                }
+            }
+            if(player.Character is Mage)
+            {
+                if(robot.Character is Archer)
+                {
+                    player.Character.AttackDamage = 12;
+                }
+                else if(robot.Character is Assasin)
+                {
+                    player.Character.Armor = 8.5;
+                }
+                else if(robot.Character is Healer)
+                {
+                    robot.Character.ExtraDamage = 2;
+                    player.Character.AttackDamage = 13;
+                    player.Character.Armor = 6;
+                }
+            }
+            if (player.Character is Healer)
+            {
+                if (robot.Character is Archer)
+                {
+                    player.Character.Armor = 6.5;
+                    player.Character.Passive = 7;
+                }
+                else if (robot.Character is Assasin)
+                {
+                    robot.Character.ExtraDamage = 3;
+                    player.Character.AttackDamage = 10;
+                    player.Character.Armor = 6.5;
+                    player.Character.Passive = 11;
+                }
+                else if (robot.Character is Mage)
+                {
+                    player.Character.ExtraDamage = 2;
+                }
+                else if (robot.Character is Warrior)
+                {
+                    player.Character.Passive = 6;
+                    player.Character.AttackDamage = 7.5;
+                    player.Character.Armor = 4.25;
+                }
+            }
+            if (player.Character is Assasin)
+            {
+                if (robot.Character is Archer)
+                {
+                    player.Character.ExtraDamage = 3;
+                }
+                else if (robot.Character is Healer)
+                {
+                    player.Character.ExtraDamage = 3;
+                }
+                else if (robot.Character is Warrior)
+                {
+                    robot.Character.ExtraDamage = 2;
+                    player.Character.AttackDamage = 25;
+                    player.Character.Armor = 7;
+                }
+            } 
+            if (player.Character is Assasin)
+            {
+
+                if (robot.Character is Assasin)
+                {
+                    robot.Character.ExtraDamage = 3;
+                    player.Character.Armor = 17;
+                }
+                else if (robot.Character is Warrior)
+                {
+                    player.Character.ExtraDamage = 2;
+                }
+            }
+        }
+        public void CharacterTurn(Character character, Character opponent, string? name, 
             double opponentCurentHP, double totalDamage, int step)
         {
-            character.GetPassivesAndCounters(opponent, ref extraDamage);
-            character.Hit(opponent);
-            PrintConsoleMessages(name, opponentCurentHP, opponent, extraDamage);
-            character.ResetPassive();
-            extraDamage = 0;
+            character.GetPassive();
+            character.Hit(ref opponent);
+            Notifier notifier = new Notifier();
+            notifier.GettingHit += OnGettingHit(this, EventArgs.Empty, name, opponentCurentHP, opponent, character.ExtraDamage);
+            //PrintConsoleMessages(name, opponentCurentHP, opponent, character.ExtraDamage);
 
-            CalculateTotalDamage(ref totalDamage, opponentCurentHP, opponent, extraDamage);
+            CalculateTotalDamage(ref totalDamage, opponentCurentHP, opponent, character.ExtraDamage);
             character.TryToLevelUp(ref step, totalDamage, name);
 
             Console.WriteLine();
@@ -112,52 +209,36 @@ namespace Arenas
         {
             totalDamage = totalDamage + opponentCurrentHp - opponentCharacter.CurrentHP + damage;
         }
-        public void PrintConsoleMessages(string? name, double opponentCurrentHp, Character opponentCharacter, double damage)
-        {
-            //Random random = new Random((int)(DateTime.Now.Ticks));
-            //int messageNumber = random.Next(0, randomMessages.Length+1);
+        /* public void PrintConsoleMessages(string? name, double opponentCurrentHp, Character opponent, double damage)
+         {
+             //Random random = new Random((int)(DateTime.Now.Ticks));
+             //int messageNumber = random.Next(0, randomMessages.Length+1);
 
+             if (damage != 0)
+             {
+                 //Console.WriteLine(randomMessages[messageNumber]);
+                 Console.WriteLine($"{name} dealt {opponentCurrentHp - opponent.CurrentHP:N2} + {damage}  extra damage");
+             }
+             else
+             {
+                 //Console.WriteLine(randomMessages[messageNumber]);
+                 Console.WriteLine($"{name} dealt {(opponentCurrentHp - opponent.CurrentHP):N2}");
+             }
+         }*/
+
+        public Notifier.GettingHitEventHandler OnGettingHit(object source, EventArgs e, string? name, double opponentCurrentHp, Character opponent,  double damage)
+        {
             if (damage != 0)
             {
                 //Console.WriteLine(randomMessages[messageNumber]);
-                Console.WriteLine($"{name} dealt {(opponentCurrentHp - opponentCharacter.CurrentHP):N2} + {damage}  extra damage");
+                Console.WriteLine($"{name} dealt {opponentCurrentHp - opponent.CurrentHP:N2} + {damage}  extra damage");
             }
             else
             {
                 //Console.WriteLine(randomMessages[messageNumber]);
-                Console.WriteLine($"{name} dealt {(opponentCurrentHp - opponentCharacter.CurrentHP):N2}");
+                Console.WriteLine($"{name} dealt {(opponentCurrentHp - opponent.CurrentHP):N2}");
             }
+            return null;
         }
-        public Character? RobotChoise()
-        {
-            Random random = new Random((int)(DateTime.Now.Ticks));
-            int number = random.Next(1, 6);
-            switch (number)
-            {
-                case 1:
-                    Character warrior = new Warrior();
-                    Console.WriteLine($"Robot chose Warrior!");
-                    return warrior;
-                case 2:
-                    Character archer = new Archer();
-                    Console.WriteLine($"Robot chose Archer! ");
-                    return archer;
-                case 3:
-                    Character healer = new Healer();
-                    Console.WriteLine($"Robot chose Healer! ");
-                    return healer;
-                case 4:
-                    Character mage = new Mage();
-                    Console.WriteLine($"Robot chose Mage! ");
-                    return mage;
-                case 5:
-                    Character assasin = new Assasin();
-                    Console.WriteLine($"Robot chose Assasin! ");
-                    return assasin;
-                default:
-                    return null;
-            }
-        }
-
     }
 }
