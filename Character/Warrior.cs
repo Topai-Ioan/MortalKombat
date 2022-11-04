@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Characters
+﻿namespace Characters
 {
     public class Warrior : Character
     {
-
         public Warrior()
         {
             Type = "warrior";
@@ -18,6 +11,7 @@ namespace Characters
             Armor = 10;
             Passive = 1.25; //permanetly incresing armor by 10%
         }
+
         public override void GetPassive()
         {
             CheckCurrentAndMaxHP();

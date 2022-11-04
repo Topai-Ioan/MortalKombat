@@ -3,7 +3,7 @@
     public abstract class Character
     {
         // to-do fa attack special pt fiecare categorie cand se strange suficienta ceva
-        public string? Type { get; set; }
+        public string Type { get; set; }
         public double MaxHP { get; set; }
         public double CurrentHP { get; set; }
         public double AttackDamage { get; set; }
@@ -22,6 +22,7 @@
             ExtraDamage = 0;
         }
         
+        //era necesar ref?
         public void Hit(ref Character opponent)
         {
             int min = 0;
@@ -30,11 +31,13 @@
             double randomDamage = random.NextDouble() * (max - min) + min;
             opponent.CurrentHP -= (AttackDamage * 10) / (opponent.Armor + 10) + randomDamage;
         }
+
         public bool IsHPZeroOrLess()
         {
             return CurrentHP <= 0;
         }
 
+        //metoda ar trebui sa fie protected
         public void CheckCurrentAndMaxHP()
         {
             if (CurrentHP > MaxHP)
@@ -44,7 +47,7 @@
         }
         // notifier in loc de consol write !
 
-        public void TryToLevelUp(ref int stepForLevelingUp, double totalDamage, string? Name)
+        public void TryToLevelUp(ref int stepForLevelingUp, double totalDamage, string name)
         {
             if (totalDamage % 30 < 30 && totalDamage > 30 + stepForLevelingUp)
             {
@@ -53,7 +56,7 @@
                 AttackDamage *= 1.2;
                 Armor *= 1.2;
                 Passive *= 1.2;
-                Console.WriteLine($"{Name} has leveled up!");
+                Console.WriteLine($"{name} has leveled up!");
             }
         }
 

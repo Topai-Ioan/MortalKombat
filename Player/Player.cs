@@ -3,6 +3,8 @@ using System.Threading;
 
 namespace Players
 {
+    // nu cred ca ar fi fost necesar un proiect pt o clasa
+    // player si robot au foarte mult in comun, cred ca ar fi mers un base class
     public class Player
     {
         public string? Name { get; set; }
@@ -14,7 +16,7 @@ namespace Players
 
             Name = Console.ReadLine();
         }
-        public Character? PlayerChoise()
+        public Character PlayerChoise()
         {
             string? type;
             Console.WriteLine("The Characters are: \nWarrior (W)\nArcher (A)\nHealer (H)\nMage (M)\nAssasin (K)");
@@ -32,6 +34,7 @@ namespace Players
                 case "w":
                     try
                     {
+                        //ce exceptie ai putea avea in constructor? in robot de ce nu ai pus try?
                         Warrior warrior = new Warrior();
                         Console.WriteLine($"{Name} chosed Warrior! Great Choise");
                         return warrior;
@@ -40,11 +43,14 @@ namespace Players
                     {
                         Console.WriteLine($"Eroare in {nameof(PlayerChoise)} la Warrior ex {ex.Message}");
                         Console.WriteLine(ex.StackTrace);
+                        throw;
                     }
+                    //programul va functiona normal daca ascunzi exceptia?
                     return null;
                 case "a":
                     try
                     {
+                        //ce exceptie ai putea avea in constructor? in robot de ce nu ai pus try?
                         Archer archer = new Archer();
                         Console.WriteLine($"{Name} chosed Archer! Great Choise");
                         return archer;
@@ -53,7 +59,9 @@ namespace Players
                     {
                         Console.WriteLine($"Eroare in {nameof(PlayerChoise)} la Archer ex {ex.Message}");
                         Console.WriteLine(ex.StackTrace);
+                        throw;
                     }
+                    //programul va functiona normal daca ascunzi exceptia?
                     return null;
 
                 case "h":
@@ -67,9 +75,11 @@ namespace Players
                     {
                         Console.WriteLine($"Eroare in {nameof(PlayerChoise)} la Healer ex {ex.Message}");
                         Console.WriteLine(ex.StackTrace);
+                        throw;
                     }
+                    //programul va functiona normal daca ascunzi exceptia?
                     return null;
-                   
+
 
                 case "m":
                     try
@@ -105,8 +115,14 @@ namespace Players
                     return null;
             }
         }
-        public bool PlayerHasValidCharacter(string? choise)
+
+        //string accepta null
+        public bool PlayerHasValidCharacter(string choise)
         {
+            var validOptions = new[] {"w", "a", "h", "m", "k" };
+            var result = validOptions.Any(o => o == choise);
+            return result;
+
             if (choise == "w")
                 return true;
             else if (choise == "a")

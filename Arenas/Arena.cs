@@ -1,9 +1,6 @@
 ﻿using Characters;
 using Players;
 using Robots;
-using System.ComponentModel;
-using System.Numerics;
-using System.Xml.Linq;
 
 namespace Arenas
 {
@@ -13,6 +10,7 @@ namespace Arenas
         public static int playerWins;
 
         // TODO RANDOM MESSAGES WHEN GETTING DAMAGE
+        // variabila neutilizata
         private string[] randomMessages = { "Our destination is quickly approaching.", "Albert Einstein was kind of smart.", 
             "That's the big question, isn't it?","Today is a great day.", "You must have a huge family.", "It's a real problem.", 
             "Italians eat a large meal twice a day.", "He is the person to see.","Here's the shirt Tom gave me.", 
@@ -22,20 +20,39 @@ namespace Arenas
 
         public void Fight( Player player,  Robot robot)
         {
+            //player & robot ar putea fi null
+            if (player == null)
+            {
+                throw new ArgumentNullException(nameof(player));
+            }
+            if (robot == null)
+            {
+                throw new ArgumentNullException(nameof(robot));
+            }
+            if (player.Character == null)
+            {
+                throw new ArgumentNullException(nameof(player.Character));
+            }
+            if (robot.Character == null)
+            {
+                throw new ArgumentNullException(nameof(robot.Character));
+            }
+
+            //e nevoie de ref pe acesti parametri?
             GetBalanced(ref player, ref robot);
             int numberToStartTurn = WhoIsStarting(player, robot);
-
            
             int stepForPLayerLevelingUp = 0;
             int stepForRobotLevelingUp = 0;
             double totalDamageDealtByPlayer = 0;
             double totalDamageDealtByRobot = 0;
             int turns = 1;
-            while (player?.Character?.IsHPZeroOrLess() == false && robot?.Character?.IsHPZeroOrLess() == false)
+            //validarile de null ar trebui sa se faca la inceputul functiei
+            while (!player.Character.IsHPZeroOrLess() && !robot.Character.IsHPZeroOrLess())
             {
                 double copieRobotCurrentHP = robot.Character.CurrentHP;
                 double copiePlayerCurrentHP = player.Character.CurrentHP;
-
+                //prea mult cod duplicat in while-ul asta. DRY
                 if (numberToStartTurn == 1)
                 {
                     // player hit first 
@@ -84,6 +101,8 @@ namespace Arenas
             else
                 Console.WriteLine("DRAW");
         }
+
+        //nu cred ca metoda asta ar trebui sa fie publica
         public int WhoIsStarting(Player player, Robot robot)
         {
             Random random = new Random((int)(DateTime.Now.Ticks));
@@ -96,6 +115,8 @@ namespace Arenas
             Console.WriteLine();
             return numberToStartTurn;
         }
+
+        //functia asta e teribila :)
         public void GetBalanced(ref Player player, ref Robot robot)
         {
             if(player.Character is Warrior)
@@ -191,6 +212,8 @@ namespace Arenas
                 }
             }
         }
+
+        //nu cred ca metoda asta ar trebui sa fie publica
         public void CharacterTurn(Character character, Character opponent, string? name, 
             double opponentCurentHP, double totalDamage, int step)
         {
@@ -205,10 +228,14 @@ namespace Arenas
 
             Console.WriteLine();
         }
+
+        //nu cred ca metoda asta ar trebui sa fie publica
         public void CalculateTotalDamage(ref double totalDamage, double opponentCurrentHp, Character opponentCharacter, double damage)
         {
             totalDamage = totalDamage + opponentCurrentHp - opponentCharacter.CurrentHP + damage;
         }
+
+        //codul comentat n-ar trebui sa existe
         /* public void PrintConsoleMessages(string? name, double opponentCurrentHp, Character opponent, double damage)
          {
              //Random random = new Random((int)(DateTime.Now.Ticks));
@@ -226,7 +253,9 @@ namespace Arenas
              }
          }*/
 
-        public Notifier.GettingHitEventHandler OnGettingHit(object source, EventArgs e, string? name, double opponentCurrentHp, Character opponent,  double damage)
+        // nu cred ca metoda asta ar trebui sa fie publica
+        // parametri astia ar trebui sa fie in event arguments: string? name, double opponentCurrentHp, Character opponent,  double damage
+        public Notifier.GettingHitEventHandler OnGettingHit(object source, EventArgs e, string name, double opponentCurrentHp, Character opponent,  double damage)
         {
             if (damage != 0)
             {

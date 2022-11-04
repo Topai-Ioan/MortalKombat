@@ -2,6 +2,7 @@
 
 namespace Robots
 {
+    // nu cred ca ar fi fost necesar un proiect pt o clasa
     public class Robot
     {
         public string? Name { get; set; }
@@ -12,9 +13,10 @@ namespace Robots
             Name = "Cici";
         }
 
-        public Character? RobotChoise()
+        //de ce trebuie null pe Character? obiectele suporta null
+        public Character RobotChoise()
         {
-            Random random = new Random((int)(DateTime.Now.Ticks));
+            Random random = new Random((int)DateTime.Now.Ticks);
             int number = random.Next(1, 6);
             switch (number)
             {
