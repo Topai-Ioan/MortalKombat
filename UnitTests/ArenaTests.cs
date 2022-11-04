@@ -2,7 +2,8 @@
 using Moq;
 using Arenas;
 using Characters;
-using static System.Net.Mime.MediaTypeNames;
+using Players;
+using Robots;
 
 namespace UnitTests
 {
@@ -10,7 +11,6 @@ namespace UnitTests
     {
 
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairWarriorAndArcher(int iterations)
@@ -21,9 +21,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Warrior warrior = new Warrior();
-                Archer archer = new Archer();
-                arena.Fight(warrior,"alex", archer);
+                Player player = new Player();
+                player.Character = new Warrior();
+                Robot robot = new Robot();
+                robot.Character = new Archer();
+                arena.Fight(player, robot);
 
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
@@ -32,7 +34,6 @@ namespace UnitTests
             Assert.InRange(Arena.playerWins, iterations / 2 - 0.15 * iterations , iterations / 2 + 0.15 * iterations);
         }        
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairWarriorAndAssasin(int iterations)
@@ -43,9 +44,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Warrior warrior = new Warrior();
-                Assasin assasin = new Assasin();
-                arena.Fight(warrior,"alex", assasin);
+                Player player = new Player();
+                player.Character = new Warrior();
+                Robot robot = new Robot();
+                robot.Character = new Assasin();
+                arena.Fight(player, robot);
 
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
@@ -55,7 +58,6 @@ namespace UnitTests
         }
 
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairWarriorAndHealer(int iterations)
@@ -66,9 +68,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Warrior warrior = new Warrior();
-                Healer healer = new Healer();
-                arena.Fight(warrior,"alex", healer);
+                Player player = new Player();
+                player.Character = new Warrior();
+                Robot robot = new Robot();
+                robot.Character = new Healer();
+                arena.Fight(player, robot);
 
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
@@ -77,7 +81,6 @@ namespace UnitTests
             Assert.InRange(Arena.playerWins, iterations/2 - 0.1*iterations , iterations/2 + 0.1 * iterations);
         }        
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairWarriorAndMage(int iterations)
@@ -88,9 +91,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Warrior warrior = new Warrior();
-                Mage mage = new Mage();
-                arena.Fight(warrior,"alex", mage);
+                Player player = new Player();
+                player.Character = new Warrior();
+                Robot robot = new Robot();
+                robot.Character = new Mage();
+                arena.Fight(player, robot);
 
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
@@ -100,7 +105,6 @@ namespace UnitTests
         }
 
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairMageAndArcher(int iterations)
@@ -111,9 +115,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Mage mage = new Mage();
-                Archer archer = new Archer();
-                arena.Fight(mage,"alex", archer);
+                Player player = new Player();
+                player.Character = new Mage();
+                Robot robot = new Robot();
+                robot.Character = new Archer();
+                arena.Fight(player, robot);
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
             Console.WriteLine($"The Robot won {Arena.robotWins} times");
@@ -121,7 +127,6 @@ namespace UnitTests
             Assert.InRange(Arena.playerWins, iterations/2 - 0.1*iterations , iterations/2 + 0.1 * iterations);
         }  
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairMageAndAssasin(int iterations)
@@ -132,9 +137,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Mage mage = new Mage();
-                Assasin assasin = new Assasin();
-                arena.Fight(mage,"alex", assasin);
+                Player player = new Player();
+                player.Character = new Mage();
+                Robot robot = new Robot();
+                robot.Character = new Assasin();
+                arena.Fight(player, robot);
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
             Console.WriteLine($"The Robot won {Arena.robotWins} times");
@@ -142,7 +149,6 @@ namespace UnitTests
             Assert.InRange(Arena.playerWins, iterations/2 - 0.1*iterations , iterations/2 + 0.1 * iterations);
         }
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairMageAndHealer(int iterations)
@@ -153,9 +159,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Mage mage = new Mage();
-                Healer healer = new Healer();
-                arena.Fight(mage, "alex", healer);
+                Player player = new Player();
+                player.Character = new Mage();
+                Robot robot = new Robot();
+                robot.Character = new Healer();
+                arena.Fight(player, robot);
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
             Console.WriteLine($"The Robot won {Arena.robotWins} times");
@@ -163,7 +171,6 @@ namespace UnitTests
             Assert.InRange(Arena.playerWins, iterations / 2 - 0.15 * iterations, iterations / 2 + 0.15 * iterations);
         }
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairHealerAndArcher(int iterations)
@@ -174,9 +181,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Healer healer = new Healer();
-                Archer archer = new Archer();
-                arena.Fight(healer, "alex", archer);
+                Player player = new Player();
+                player.Character = new Healer();
+                Robot robot = new Robot();
+                robot.Character = new Archer();
+                arena.Fight(player, robot);
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
             Console.WriteLine($"The Robot won {Arena.robotWins} times");
@@ -184,7 +193,6 @@ namespace UnitTests
             Assert.InRange(Arena.playerWins, iterations/2 - 0.1*iterations , iterations/2 + 0.1 * iterations);
         } 
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairHealerAndAssasin(int iterations)
@@ -195,9 +203,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Healer healer = new Healer();
-                Assasin assasin = new Assasin();
-                arena.Fight(healer, "alex", assasin);
+                Player player = new Player();
+                player.Character = new Healer();
+                Robot robot = new Robot();
+                robot.Character = new Assasin();
+                arena.Fight(player, robot);
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
             Console.WriteLine($"The Robot won {Arena.robotWins} times");
@@ -205,7 +215,6 @@ namespace UnitTests
             Assert.InRange(Arena.playerWins, iterations/2 - 0.15*iterations , iterations/2 + 0.15 * iterations);
         } 
         [Theory]
-        [InlineData(10)]
         [InlineData(100)]
         [InlineData(1000)]
         public void Fight_ShouldBeFairAssasinAndArcher(int iterations)
@@ -216,9 +225,11 @@ namespace UnitTests
             Arena.robotWins = 0;
             for (int i = 0; i < iterations; i++)
             {
-                Assasin assasin  = new Assasin();
-                Archer archer= new Archer();
-                arena.Fight(assasin,"alex", archer);
+                Player player = new Player();
+                player.Character = new Assasin();
+                Robot robot = new Robot();
+                robot.Character = new Archer();
+                arena.Fight(player, robot);
             }
             Console.WriteLine($"The Player won {Arena.playerWins} times");
             Console.WriteLine($"The Robot won {Arena.robotWins} times");

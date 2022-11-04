@@ -12,14 +12,6 @@ namespace Arenas
         public static int robotWins;
         public static int playerWins;
 
-        // TODO RANDOM MESSAGES WHEN GETTING DAMAGE
-        private string[] randomMessages = { "Our destination is quickly approaching.", "Albert Einstein was kind of smart.", 
-            "That's the big question, isn't it?","Today is a great day.", "You must have a huge family.", "It's a real problem.", 
-            "Italians eat a large meal twice a day.", "He is the person to see.","Here's the shirt Tom gave me.", 
-            "My goal is to save lives, not cost them.", "Why didn't you just call the police?", "She had nothing else to say to him.",
-            "Everyone was in on the joke except for me.", "She likes to swing at the playground.", "Murders are very common in cities."
-        };
-
         public void Fight( Player player,  Robot robot)
         {
             GetBalanced(ref player, ref robot);
@@ -103,26 +95,27 @@ namespace Arenas
                 if(robot.Character is Archer)
                 {
                     robot.Character.ExtraDamage = 3;
-                    player.Character.AttackDamage = 10.2;
+                    player.Character.AttackDamage = 7;
                 }
                 else if (robot.Character is Assasin)
                 {
                     player.Character.ExtraDamage = 2;
+                    player.Character.AttackDamage = 9.9;
                 } 
                 else if (robot.Character is Healer)
                 {
-                    player.Character.AttackDamage = 9.9;
+                    player.Character.AttackDamage = 8.3;
                 }
                 else if (robot.Character is Mage)
                 {
-                    player.Character.AttackDamage = 9.7;
+                    player.Character.AttackDamage = 9.6;
                 }
             }
             if(player.Character is Mage)
             {
                 if(robot.Character is Archer)
                 {
-                    player.Character.AttackDamage = 12;
+                    player.Character.AttackDamage = 8;
                 }
                 else if(robot.Character is Assasin)
                 {
@@ -131,8 +124,8 @@ namespace Arenas
                 else if(robot.Character is Healer)
                 {
                     robot.Character.ExtraDamage = 2;
-                    player.Character.AttackDamage = 13;
-                    player.Character.Armor = 6;
+                    player.Character.AttackDamage = 6;
+                    player.Character.Armor = 2;
                 }
             }
             if (player.Character is Healer)
@@ -147,7 +140,7 @@ namespace Arenas
                     robot.Character.ExtraDamage = 3;
                     player.Character.AttackDamage = 10;
                     player.Character.Armor = 6.5;
-                    player.Character.Passive = 11;
+                    player.Character.Passive = 8;
                 }
                 else if (robot.Character is Mage)
                 {
@@ -165,6 +158,8 @@ namespace Arenas
                 if (robot.Character is Archer)
                 {
                     player.Character.ExtraDamage = 3;
+                    player.Character.Armor = 2;
+                    player.Character.AttackDamage = 15;
                 }
                 else if (robot.Character is Healer)
                 {
@@ -177,7 +172,7 @@ namespace Arenas
                     player.Character.Armor = 7;
                 }
             } 
-            if (player.Character is Assasin)
+            if (player.Character is Archer)
             {
 
                 if (robot.Character is Assasin)
@@ -198,7 +193,6 @@ namespace Arenas
             character.Hit(ref opponent);
             Notifier notifier = new Notifier();
             notifier.GettingHit += OnGettingHit(this, EventArgs.Empty, name, opponentCurentHP, opponent, character.ExtraDamage);
-            //PrintConsoleMessages(name, opponentCurentHP, opponent, character.ExtraDamage);
 
             CalculateTotalDamage(ref totalDamage, opponentCurentHP, opponent, character.ExtraDamage);
             character.TryToLevelUp(ref step, totalDamage, name);
@@ -209,33 +203,15 @@ namespace Arenas
         {
             totalDamage = totalDamage + opponentCurrentHp - opponentCharacter.CurrentHP + damage;
         }
-        /* public void PrintConsoleMessages(string? name, double opponentCurrentHp, Character opponent, double damage)
-         {
-             //Random random = new Random((int)(DateTime.Now.Ticks));
-             //int messageNumber = random.Next(0, randomMessages.Length+1);
-
-             if (damage != 0)
-             {
-                 //Console.WriteLine(randomMessages[messageNumber]);
-                 Console.WriteLine($"{name} dealt {opponentCurrentHp - opponent.CurrentHP:N2} + {damage}  extra damage");
-             }
-             else
-             {
-                 //Console.WriteLine(randomMessages[messageNumber]);
-                 Console.WriteLine($"{name} dealt {(opponentCurrentHp - opponent.CurrentHP):N2}");
-             }
-         }*/
 
         public Notifier.GettingHitEventHandler OnGettingHit(object source, EventArgs e, string? name, double opponentCurrentHp, Character opponent,  double damage)
         {
             if (damage != 0)
             {
-                //Console.WriteLine(randomMessages[messageNumber]);
                 Console.WriteLine($"{name} dealt {opponentCurrentHp - opponent.CurrentHP:N2} + {damage}  extra damage");
             }
             else
             {
-                //Console.WriteLine(randomMessages[messageNumber]);
                 Console.WriteLine($"{name} dealt {(opponentCurrentHp - opponent.CurrentHP):N2}");
             }
             return null;
